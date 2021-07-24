@@ -1,17 +1,17 @@
 <template>
   <div class="layout">
     <el-container class="container">
-      <!-- 侧边栏布局 -->
       <el-aside class="aside">
         <!--系统名称+logo-->
         <div class="head">
           <div>
-            <img src="./assets/mainLogo.jpg" alt="logo" />
-            <span>PC电商管理</span>
+            <img src="//s.weituibao.com/1582958061265/mlogo.png" alt="logo" />
+            <span>PC 电商后台</span>
           </div>
         </div>
         <!--一条为了美观的线条-->
         <div class="line" />
+        <!-- :router是 启动element-ui的router属性在index跳转path时候使用 -->
         <el-menu background-color="#222832" text-color="#fff" :router="true">
           <!--一级栏目-->
           <el-submenu index="1">
@@ -27,7 +27,6 @@
           </el-submenu>
         </el-menu>
       </el-aside>
-      <!-- 右边布局 -->
       <!--右边内容布局-->
       <el-container class="content">
         <Header />
@@ -39,10 +38,11 @@
       </el-container>
     </el-container>
   </div>
-  <router-view></router-view>
 </template>
 
 <script>
+import Header from "@/components/Header.vue";
+import Footer from "@/components/Footer.vue";
 export default {
   name: "App",
   components: {
@@ -50,12 +50,9 @@ export default {
     Footer,
   },
 };
-import Header from "@/components/Header.vue";
-import Footer from "@/components/Footer.vue";
 </script>
 
 <style scoped>
-/* 侧边栏布局 */
 .layout {
   min-height: 100vh;
   background-color: #ffffff;
@@ -91,6 +88,19 @@ import Footer from "@/components/Footer.vue";
   border-top: 1px solid hsla(0, 0%, 100%, 0.05);
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
 }
+
+/* 右边部分的样式 */
+.content {
+  display: flex;
+  flex-direction: column;
+  max-height: 100vh;
+  overflow: hidden;
+}
+.main {
+   height: calc(100vh - 100px);
+  overflow: auto;
+  padding: 10px;
+}
 </style>
 
 <style>
@@ -123,20 +133,4 @@ a {
 .el-popper__arrow {
   display: none;
 }
-/* 侧边栏布局结束 */
-/* 右边布局开始 */
-.content {
-  display: flex;
-  flex-direction: column;
-  max-height: 100vh;
-  overflow: hidden;
-}
-.main {
-  height: 100vh;
-  overflow: auto;
-  padding: 10px;
-  height: 100vh;
-  height: calc(100vh - 100px);
-}
-/* 右边布局结束 */
 </style>

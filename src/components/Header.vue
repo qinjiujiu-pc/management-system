@@ -1,6 +1,9 @@
 <template>
   <div class="header">
-    <div class="left">左</div>
+    <div class="left">
+      <!-- 路由监听点击左边菜单栏的时候 右边的页面也跟着变化 -->
+      <span style="font-size: 20px">{{ name }}</span>
+    </div>
     <div class="right">右</div>
   </div>
 </template>
