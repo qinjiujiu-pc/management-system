@@ -1,5 +1,11 @@
 <template>
   <div class="layout">
+    <!-- 登录页面内容 后续加入 -->
+    <el-container v-if="showMenu" class="container"> </el-container>
+    <el-container v-else class="container">
+      <router-view />
+    </el-container>
+
     <el-container class="container">
       <el-aside class="aside">
         <!--系统名称+logo-->
@@ -20,8 +26,13 @@
             </template>
             <!--二级栏目-->
             <el-menu-item-group>
+              <!-- 导入index首页 -->
               <el-menu-item index="/"
                 ><i class="el-icon-data-line" />首页</el-menu-item
+              >
+              <!-- 导入添加商品页面 -->
+              <el-menu-item index="/add"
+                ><i class="el-icon-data-line" />添加商品</el-menu-item
               >
             </el-menu-item-group>
           </el-submenu>
@@ -41,15 +52,37 @@
 </template>
 
 <script>
+import { reactive, toRefs } from "vue";
+import { useRouter } from "vue-router";
 import Header from "@/components/Header.vue";
 import Footer from "@/components/Footer.vue";
+// 判断登录页面是否需要隐藏
+
 export default {
   name: "App",
   components: {
     Header,
     Footer,
   },
-};
+  setup(){
+    //不需要菜单的路劲数组、
+        const noMenu = ['/login']
+    const router = useRouter()
+    const state = reactive({
+      showMenu: true, // 是否需要显示菜单
+    })
+    // 监听路由的变化
+    router.beforeEach((to) => {
+      state.showMenu = !noMenu.includes(to.path)
+    })
+
+    return {
+      ...toRefs(state)
+    }
+ 
+
+  }
+}
 </script>
 
 <style scoped>
@@ -97,7 +130,7 @@ export default {
   overflow: hidden;
 }
 .main {
-   height: calc(100vh - 100px);
+  height: calc(100vh - 100px);
   overflow: auto;
   padding: 10px;
 }
