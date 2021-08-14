@@ -26,6 +26,7 @@
             autocomplete="off"
           ></el-input>
         </el-form-item>
+
         <!-- 密码 -->
         <el-form-item label="密码" prop="password">
           <el-input
@@ -36,7 +37,7 @@
         </el-form-item>
         <!-- 条款 -->
         <el-form-item>
-          <div style="color: #333">登录表示您已同意<a>《服务条款》</a></div>
+          <div style="color: #333">登录表示您已同意<a href="https://www.qq.com/contract.shtml">《服务条款》</a></div>
           <el-button style="width: 100%" type="primary" @click="submitForm"
             >立即登录</el-button
           >

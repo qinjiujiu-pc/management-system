@@ -27,6 +27,7 @@ axios.interceptors.response.use(res => {
     }
     if (res.data.resultCode != 200) {
         if (res.data.message) ElMessage.error(res.data.message)
+            // 这里是做了登录鉴权  如果错误码为419的时候  就会跳转到login页面 后期还需要在优化
         if (res.data.resultCode == 419) {
             router.push({ path: '/login' })
         }
