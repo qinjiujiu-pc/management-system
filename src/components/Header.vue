@@ -1,43 +1,79 @@
 <template>
   <div class="header">
     <div class="left">
-      <!-- 路由监听点击左边菜单栏的时候 右边的页面也跟着变化 -->
       <span style="font-size: 20px">{{ name }}</span>
     </div>
-    <div class="right">右</div>
+    <div class="right">
+      <el-popover
+        placement="bottom"
+        :width="320"
+        trigger="click"
+        popper-class="popper-user-box"
+      >
+        <template #reference>
+          <div class="author">
+            <i class="icon el-icon-s-custom" />
+            {{ userInfo && userInfo.nickName || '' }}
+            <i class="el-icon-caret-bottom" />
+          </div>
+        </template>
+        <div class="nickname">
+          <p>登录名：{{ userInfo && userInfo.loginUserName || '' }}</p>
+          <p>昵称：{{ userInfo && userInfo.nickName || '' }}</p>
+          <el-tag size="small" effect="dark" class="logout" @click="logout">退出</el-tag>
+        </div>
+      </el-popover>
+    </div>
   </div>
 </template>
 
 <script>
-import { reactive, toRefs } from 'vue'
+import { onMounted, reactive, toRefs } from 'vue'
 import { useRouter } from 'vue-router'
+import axios from '@/utils/axios'
+import { localRemove, pathMap } from '@/utils'
 export default {
   name: 'Header',
   setup() {
-    // 获取路由实例
     const router = useRouter()
-    // 声明路由和 title 对应的键值对
-    const pathMap = {
-      index: '首页',
-      add: '添加商品'
-    }
     const state = reactive({
-      name: '首页'
+      name: 'dashboard',
+      userInfo: null, // 用户信息变量
     })
-    // 监听路由变化方法 afterEach
+    // 初始化执行方法
+     onMounted(() => {
+      const pathname = window.location.hash.split('/')[1] || ''
+      if (!['login'].includes(pathname)) {
+        getUserInfo()
+      }
+    })
+    // 获取用户信息
+    const getUserInfo = async () => {
+      const userInfo = await axios.get('/adminUser/profile')
+      state.userInfo = userInfo
+    }
+    // 退出登录
+    const logout = () => {
+      axios.delete('/logout').then(() => {
+        // 退出之后，将本地保存的 token  清理掉
+        localRemove('token')
+        // 回到登录页
+        router.push({ path: '/login' })
+      })
+    }
+
     router.afterEach((to) => {
       console.log('to', to)
-      // to 能获取到路由相关信息。
       const { id } = to.query
       state.name = pathMap[to.name]
     })
 
     return {
-      ...toRefs(state)
+      ...toRefs(state),
+      logout
     }
   }
 }
-
 </script>
 
 <style scoped>
@@ -48,5 +84,31 @@ export default {
     justify-content: space-between;
     align-items: center;
     padding: 0 20px;
+  }
+  .right > div > .icon{
+    font-size: 18px;
+    margin-right: 6px;
+  }
+  .author {
+    margin-left: 10px;
+    cursor: pointer;
+  }
+</style>
+
+<style>
+  .popper-user-box {
+    background: url('https://s.yezgea02.com/lingling-h5/static/account-banner-bg.png') 50% 50% no-repeat!important;
+    background-size: cover!important;
+    border-radius: 0!important;
+  }
+   .popper-user-box .nickname {
+    position: relative;
+    color: #ffffff;
+  }
+  .popper-user-box .nickname .logout {
+    position: absolute;
+    right: 0;
+    top: 0;
+    cursor: pointer;
   }
 </style>

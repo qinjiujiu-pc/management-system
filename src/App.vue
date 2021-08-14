@@ -46,6 +46,7 @@
         <Footer />
       </el-container>
     </el-container>
+    <!-- 上面是显示侧边栏 如果符合else的条件  就使用下面的隐藏侧边栏 -->
     <el-container v-else class="container">
       <router-view />
     </el-container>
@@ -94,6 +95,7 @@ export default {
     });
     return {
       ...toRefs(state)
+     
     }
    
   },
@@ -149,9 +151,14 @@ export default {
   overflow: auto;
   padding: 10px;
 }
+
 </style>
 
+
+
+
 <style>
+/* // 下面的style是公共样式部分 */
 body {
   padding: 0;
   margin: 0;
@@ -181,4 +188,6 @@ a {
 .el-popper__arrow {
   display: none;
 }
+
+
 </style>
