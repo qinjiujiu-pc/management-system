@@ -3,6 +3,8 @@
 import { createApp } from 'vue'
 import App from './App.vue'
 import router from '@/router'
+import axios from 'axios'
+
 //下面两个都是导入element-plus样式
 import ElementPlus from 'element-plus'
 //这个是旧的样式 可以取消了

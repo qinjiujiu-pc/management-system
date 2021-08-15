@@ -16,6 +16,7 @@
         label-position="top"
         :rules="rules"
         :model="ruleForm"
+        ref="loginForm" 
         class="login-form"
       >
         <!-- 账号 -->
@@ -50,11 +51,11 @@
 </template>
 
 <script>
-import axios from '@/utils/axios'
+import axios from "@/utils/axios";
 // 安装 js-md5，密码需要 md5 加密，服务端是解密 md5 的形式
-import md5 from 'js-md5'
-import { reactive, ref, toRefs } from 'vue'
-import { localSet } from '@/utils'
+import md5 from "js-md5";
+import { reactive, ref, toRefs } from "vue";
+import { localSet, localGet } from "@/utils";
 export default {
   name: "Login",
   setup() {
@@ -62,8 +63,10 @@ export default {
     const loginForm = ref(null);
     const state = reactive({
       ruleForm: {
-        username: "", // 账号
-        password: "", // 密码
+        username: "", 
+        
+        password: "", 
+       
       },
       checked: true,
       // 表单验证判断。
@@ -77,27 +80,26 @@ export default {
       },
     });
     //表单提交方法
-    const submitForm = (async) => {
+     // 表单提交方法
+    const submitForm = async () => {
       loginForm.value.validate((valid) => {
-        //   valid是一个布尔值 表示表单是否通过了上面的rules的规则
-        if (valid) {
+        // valid 是一个布尔值，表示表单是否通过了上面 rules 的规则。
+        if (valid ) {
           // /adminUser/login 登录接口路径
-          axios
-            .post("/adminUser/login", {
-              username: status.ruleForm.userame || "",
-              passwordMD5: md5(state.ruleForm.password), // 密码需要 md5 加密
-            })
-            .then((res) => {
-              // 返回的时候会有一个token 这个令牌就是我们后续请求别的接口是需要带上的 证明我们登录成功了 否则无法跳转到别的页面
-              // 这里我把他存到localStorage里面
-              localSet("token", res);
-              // 此处登录完成之后需要刷新页面
-              window.location.href = "/";
-            })
-
-        }else{
-            console.log('error submit!!!!')
-            return false;
+          axios.post('/adminUser/login', {
+            userName: state.ruleForm.username || '',
+            passwordMd5: md5(state.ruleForm.password)
+            // 密码需要 md5 加密
+          }).then(res => {
+            // 返回的时候会有一个 token，这个令牌就是我们后续去请求别的接口时要带上的，否则会报错，非管理员。
+            // 这里我们将其存储到 localStorage 里面。
+            localSet('token', res)
+            // 此处登录完成之后，需要刷新页面
+            window.location.href = '/'
+          })
+        } else {
+          console.log('error submit!!')
+          return false;
         }
       })
     }
@@ -105,16 +107,15 @@ export default {
     const resetForm = () => {
       // loginForm能拿到 el-form 的重制方法
       loginForm.value.resetFields();
-    }
+    };
     return {
       ...toRefs(state),
       loginForm, // 注意，一定要返回 loginForm
       submitForm,
-      resetForm
-    }
- 
-  }
-}
+      resetForm,
+    };
+  },
+};
 </script>
 
 <style scoped>
@@ -154,13 +155,13 @@ export default {
 }
 /* 登录框的样式 */
 .login-form {
-    width: 70%;
-    margin: 0 auto;
-  }
-  .login-form >>> .el-form--label-top .el-form-item__label {
-    padding: 0;
-  }
-  .login-form >>> .el-form-item {
-    margin-bottom: 0;
-  }
+  width: 70%;
+  margin: 0 auto;
+}
+.login-form >>> .el-form--label-top .el-form-item__label {
+  padding: 0;
+}
+.login-form >>> .el-form-item {
+  margin-bottom: 0;
+}
 </style>
