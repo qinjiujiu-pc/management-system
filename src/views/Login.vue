@@ -51,7 +51,7 @@
 
 <script>
 import axios from '@/utils/axios'
-/ 安装 js-md5，密码需要 md5 加密，服务端是解密 md5 的形式
+// 安装 js-md5，密码需要 md5 加密，服务端是解密 md5 的形式
 import md5 from 'js-md5'
 import { reactive, ref, toRefs } from 'vue'
 import { localSet } from '@/utils'
@@ -119,7 +119,7 @@ export default {
 
 <style scoped>
 .login-container {
-  width: 420px;
+  width: 500px;
   height: 500px;
   background-color: #fff;
   border-radius: 4px;
@@ -152,4 +152,15 @@ export default {
   width: 100%;
   background-color: #fff;
 }
+/* 登录框的样式 */
+.login-form {
+    width: 70%;
+    margin: 0 auto;
+  }
+  .login-form >>> .el-form--label-top .el-form-item__label {
+    padding: 0;
+  }
+  .login-form >>> .el-form-item {
+    margin-bottom: 0;
+  }
 </style>
