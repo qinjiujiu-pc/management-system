@@ -40,3 +40,13 @@ r如果登录错误 else出来打印错误
 
 8.16 晚上 今晚上的目标是实现首页echarts数据的制作 两个小时应该差不多吧
 echartsde 引入方式一般使用npm的方式去引入 这次我们采用静态资源的方式去引入
+
+
+8.16 21.40  echarts写完还有点早 在继续写一写首页的相关配置吧
+34节主要注意的内容是多页面公用同一个组件 弹窗组件的封装
+完成了DialogAddSwiper的template部分和是script的逻辑部分，剩下的明天继续加油啊 还是继续写一点点吧
+组件弹窗完成
+引入 DialogAddSwiper 组件，添加 handleAdd 方法的时候  出现问题 项目启动之后白屏 问题为
+Uncaught SyntaxError: The requested module '/src/utils/index.js?t=1629125027384' does not provide an export named 'uploadImgServer'
+明天在解决吧 先提交睡觉了
+

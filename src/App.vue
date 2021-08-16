@@ -16,21 +16,33 @@
         <!--一条为了美观的线条-->
         <div class="line" />
         <!-- :router是 启动element-ui的router属性在index跳转path时候使用 -->
-        <el-menu background-color="#222832" text-color="#fff" :router="true">
-          <!--一级栏目-->
+        <el-menu
+          background-color="#222832"
+          text-color="#fff"
+          :router="true"
+          :default-openeds="defaultOpen"
+          :default-active="currentPath"
+        >
           <el-submenu index="1">
             <template #title>
               <span>首页</span>
             </template>
-            <!--二级栏目-->
             <el-menu-item-group>
-              <!-- 导入index首页 -->
               <el-menu-item index="/"
-                ><i class="el-icon-data-line" />首页</el-menu-item
+                ><i class="el-icon-odometer" />首页</el-menu-item
               >
-              <!-- 导入添加商品页面 -->
               <el-menu-item index="/add"
-                ><i class="el-icon-data-line" />添加商品</el-menu-item
+                ><i class="el-icon-plus" />添加商品</el-menu-item
+              >
+            </el-menu-item-group>
+          </el-submenu>
+          <el-submenu index="2">
+            <template #title>
+              <span>首页配置</span>
+            </template>
+            <el-menu-item-group>
+              <el-menu-item index="/swiper"
+                ><i class="el-icon-picture" />轮播图配置</el-menu-item
               >
             </el-menu-item-group>
           </el-submenu>
@@ -73,31 +85,32 @@ export default {
     const router = useRouter();
     const state = reactive({
       showMenu: true, // 是否需要显示菜单
+      defaultOpen: ["1", "2"],
+      currentPath: "/",
     });
     // 监听路由的变化
-     //  路由监听 是否打开新页面
-    router.beforeEach((to,from, next) => {
-     if (to.path == '/login') {
+    //  路由监听 是否打开新页面
+    router.beforeEach((to, from, next) => {
+      if (to.path == "/login") {
         // 如果路径是 /login 则正常执行
-        next()
+        next();
       } else {
         // 如果不是 /login，判断是否有 token
-        if (!localGet('token')) {
+        if (!localGet("token")) {
           // 如果没有，则跳至登录页面
-          next({ path: '/login' })
+          next({ path: "/login" });
         } else {
           // 否则继续执行
-          next()
+          next();
         }
       }
-      state.showMenu = !noMenu.includes(to.path)
-      document.title = pathMap[to.name]
+      state.showMenu = !noMenu.includes(to.path);
+      state.currentPath = to.path;
+      document.title = pathMap[to.name];
     });
     return {
-      ...toRefs(state)
-     
-    }
-   
+      ...toRefs(state),
+    };
   },
 };
 </script>
@@ -151,7 +164,6 @@ export default {
   overflow: auto;
   padding: 10px;
 }
-
 </style>
 
 
@@ -188,6 +200,4 @@ a {
 .el-popper__arrow {
   display: none;
 }
-
-
 </style>

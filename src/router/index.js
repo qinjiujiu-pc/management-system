@@ -10,6 +10,8 @@ import AddGood from '@/views/AddGood.vue'
 // 登录页面的路由导入
 import Login from '@/views/Login.vue'
 
+import Swiper from '@/views/Swiper.vue'
+
 const router = createRouter({
     history: createWebHashHistory(), // hash 模式
     routes: [
@@ -33,6 +35,11 @@ const router = createRouter({
             path: '/login',
             name: 'login',
             component: Login
+        },
+        {
+            path: '/swiper',
+            name: 'swiper',
+            component: Swiper
         }
     ]
 })
