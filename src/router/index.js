@@ -11,6 +11,7 @@ import AddGood from '@/views/AddGood.vue'
 import Login from '@/views/Login.vue'
 
 import Swiper from '@/views/Swiper.vue'
+import IndexConfig from '@/views/IndexConfig.vue'
 
 const router = createRouter({
     history: createWebHashHistory(), // hash 模式

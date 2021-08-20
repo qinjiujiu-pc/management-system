@@ -1,4 +1,3 @@
-<!--DialogAddGood.vue-->
 <template>
   <el-dialog
     :title="type == 'add' ? '添加商品' : '修改商品'"
@@ -138,3 +137,6 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+</style>
