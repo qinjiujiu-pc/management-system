@@ -50,3 +50,7 @@ echartsde 引入方式一般使用npm的方式去引入 这次我们采用静态
 Uncaught SyntaxError: The requested module '/src/utils/index.js?t=1629125027384' does not provide an export named 'uploadImgServer'
 明天在解决吧 先提交睡觉了
 
+8.20早上：实现公共页面组件的切换有两种方法：
+通过 Tab 在统一组件内，切换不同的选项，从而替换展示的内容。
+
+三个页面公用一个组件，通过路由监听变化，来判断不同的路径，对应不同的接口参数配置。

@@ -27,9 +27,11 @@
     <!-- load这个属性用来等待加载动画 -->
     <el-table
       :load="loading"
+      ref="multipleTable"
       :data="tableData"
       tooltip-effect="dark"
       style="width: 100%"
+      @selection-change="handleSelectionChange"
     >
       <el-table-column type="selection" width="55"> </el-table-column>
       <el-table-column label="轮播图" width="200">
@@ -54,12 +56,23 @@
       <el-table-column prop="createTime" label="添加时间" width="200">
       </el-table-column>
     </el-table>
+    <!-- 这个组件是分页组件el-pagination -->
+    <el-pagination
+      background
+      layout="prev, pager, next"
+      :total="total"
+      :page-size="pageSize"
+      :current-page="currentPage"
+      @current-change="changePage"
+    />
   </el-card>
+  <DialogAddSwiper ref="addSwiper" :reload="getCarousels" :type="type" />
 </template>
 <script>
 import { onMounted, reactive, ref, toRefs } from "vue";
 import axios from "@/utils/axios";
 import DialogAddSwiper from "@/components/DialogAddSwiper.vue";
+import { ElMessage } from "element-plus";
 export default {
   name: "Swiper",
   components: {
@@ -72,16 +85,27 @@ export default {
       tableData: [], // 数据列表
       currentPage: 1, // 当前页数
       pageSize: 10, // 每页请求数
-      type: 'add', // 操作类型
+      type: "add", // 操作类型
+      multipleSelection: [], // 选中项
+      total: 0, // 总条数
     });
 
+    // 添加轮播项
+    const handleAdd = () => {
+      state.type = "add";
+      addSwiper.value.open();
+    };
+    // 修改轮播图
+    const handleEdit = (id) => {
+      state.type = "edit";
+      addSwiper.value.open(id);
+    };
     onMounted(() => {
       getCarousels();
     });
     // 获取轮播图列表
     const getCarousels = () => {
       state.loading = true;
-      //   script 的逻辑也很直观，就是通过 axios.get 获取表格数据，赋值给 tableData 进行数据渲染。
       axios
         .get("/carousels", {
           params: {
@@ -92,23 +116,43 @@ export default {
         .then((res) => {
           state.tableData = res.list;
           state.loading = false;
+          state.currentPage = res.currPage;
+          state.loading = false;
         });
     };
-     const handleAdd = () => {
-        state.type = 'add'
-        addSwiper.value.open()
+    const changePage = (val) => {
+      state.currentPage = val;
+      getCarousels();
+    };
+    // 选中之后的change方法，一旦选项有变化，就会触发该方法。
+    const handleSelectionChange = (val) => {
+      state.multipleSelection = val;
+    };
+    const handleDelete = () => {
+      if (!state.multipleSelection.length) {
+        ElMessage.error("请选择项");
+        return;
       }
-      // 修改轮播图
-      const handleEdit = (id) => {
-        state.type = 'edit'
-        addSwiper.value.open(id)
-      }
+      axios
+        .delete("/carousels", {
+          data: {
+            ids: state.multipleSelection.map((i) => i.carouselId),
+          },
+        })
+        .then(() => {
+          ElMessage.success("删除成功");
+          getCarousels();
+        });
+    };
+
     return {
       ...toRefs(state),
-       addSwiper,
-        handleAdd,
-        handleEdit,
-        getCarousels, // 这里将获取轮播图列表的接口返回，因为弹窗内部添加后，需要刷新列表
+      addSwiper,
+      handleAdd,
+      handleEdit,
+      getCarousels, // 这里将获取轮播图列表的接口返回，因为弹窗内部添加后，需要刷新列表
+      handleSelectionChange,
+      handleDelete,
     };
   },
 };

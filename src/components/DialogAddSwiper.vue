@@ -1,45 +1,23 @@
 <template>
-  <!-- 首先通过 type 变量控制是新增或是编辑，
-之后通过 visible 变量控制弹窗的显示隐藏，
-通过 ruleForm 和 rules 控制表单的数据和验证规则，
-el-upload 用于控制图片上传，el-upload 接受几个参数 -->
   <el-dialog
     :title="type == 'add' ? '添加轮播图' : '修改轮播图'"
     v-model="visible"
     width="400px"
   >
-    <el-form
-      :model="ruleForm"
-      :rules="rules"
-      ref="formRef"
-      label-width="100px"
-      class="good-form"
-    >
+    <el-form :model="ruleForm" :rules="rules" ref="formRef" label-width="100px" class="good-form">
       <el-form-item label="图片" prop="url">
-        <!-- action：上传接口，这边需要服务端提供。 -->
-        <!-- accept：控制上传的文件后缀，目前这个参数并不生效，
-          后面是通过 before-upload 来控制上传的文件。
-           -->
-        <!-- headers：上传接口调用时，携带的请求头数据，
-           项目中需要串 token 数据，因为这样才有权限调用上传接口，否则会报错。 -->
-        <!-- on-success：成功回调方法，通常会在这里给变量赋值。 -->
         <el-upload
           class="avatar-uploader"
           :action="uploadImgServer"
           accept="jpg,jpeg,png"
           :headers="{
-            token: token,
+            token: token
           }"
           :show-file-list="false"
           :before-upload="handleBeforeUpload"
           :on-success="handleUrlSuccess"
         >
-          <img
-            style="width: 200px; height: 100px; border: 1px solid #e9e9e9"
-            v-if="ruleForm.url"
-            :src="ruleForm.url"
-            class="avatar"
-          />
+          <img style="width: 200px; height: 100px; border: 1px solid #e9e9e9;" v-if="ruleForm.url" :src="ruleForm.url" class="avatar">
           <i v-else class="el-icon-plus avatar-uploader-icon"></i>
         </el-upload>
       </el-form-item>
@@ -93,8 +71,7 @@ export default {
       },
       id: ''
     })
-    // 获取详情 获取的参数具体 放在getDetail里面 调用axios的get方法 获取参数的id  然后返回 三个参数
-    // url link和sort 这里和async和await简化promise类似哈
+    // 获取详情
     const getDetail = (id) => {
       axios.get(`/carousels/${id}`).then(res => {
         state.ruleForm = {
@@ -104,7 +81,7 @@ export default {
         }
       })
     }
-    // 上传之前，控制上传的文件。传入一个file参数。 然后就可以使用这参数调用方法了 调用出name然后使用split方法
+    // 上传之前，控制上传的文件。
     const handleBeforeUpload = (file) => {
       const sufix = file.name.split('.')[1] || ''
       if (!['jpg', 'jpeg', 'png'].includes(sufix)) {
