@@ -12,6 +12,7 @@ import Login from '@/views/Login.vue'
 
 import Swiper from '@/views/Swiper.vue'
 import IndexConfig from '@/views/IndexConfig.vue'
+import Category from '@/views/Category.vue'
 
 const router = createRouter({
     history: createWebHashHistory(), // hash 模式
@@ -57,6 +58,27 @@ const router = createRouter({
             name: 'recommend',
             component: IndexConfig
         },
+        // 分类管理页面配置
+        {
+            path: '/category',
+            name: 'category',
+            component: Category,
+            children: [{
+                    path: '/category/level2',
+                    name: 'level2',
+                    component: Category,
+                },
+                {
+                    path: '/category/level3',
+                    name: 'level3',
+                    component: Category,
+                }
+            ]
+        },
+
+
+
+
     ]
 })
 

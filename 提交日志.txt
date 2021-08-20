@@ -54,3 +54,11 @@ Uncaught SyntaxError: The requested module '/src/utils/index.js?t=1629125027384'
 通过 Tab 在统一组件内，切换不同的选项，从而替换展示的内容。
 
 三个页面公用一个组件，通过路由监听变化，来判断不同的路径，对应不同的接口参数配置。
+
+8.20晚上 34OK啦
+8.20晚上第二轮开始  35节开始
+35的重点在于路由的配置跳转 及子路由的配置跳转
+
+35代码完成 最后出现问题为：GET http://localhost:3000/code/demo-for%20Autumn%20recruit/management-system/src/components/DialogAddCategory.vue net::ERR_ABORTED 404 (Not Found)
+静态资源未找到 ，明天在找吧 晚安
+

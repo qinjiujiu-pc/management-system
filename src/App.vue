@@ -41,10 +41,28 @@
               <span>首页配置</span>
             </template>
             <el-menu-item-group>
-              <el-menu-item index="/swiper"><i class="el-icon-picture" />轮播图配置</el-menu-item>
-    <el-menu-item index="/hot"><i class="el-icon-star-on" />热销商品配置</el-menu-item>
-    <el-menu-item index="/new"><i class="el-icon-sell" />新品上线配置</el-menu-item>
-    <el-menu-item index="/recommend"><i class="el-icon-thumb" />为你推荐配置</el-menu-item>
+              <el-menu-item index="/swiper"
+                ><i class="el-icon-picture" />轮播图配置</el-menu-item
+              >
+              <el-menu-item index="/hot"
+                ><i class="el-icon-star-on" />热销商品配置</el-menu-item
+              >
+              <el-menu-item index="/new"
+                ><i class="el-icon-sell" />新品上线配置</el-menu-item
+              >
+              <el-menu-item index="/recommend"
+                ><i class="el-icon-thumb" />为你推荐配置</el-menu-item
+              >
+            </el-menu-item-group>
+          </el-submenu>
+          <el-submenu index="3">
+            <template #title>
+              <span>模块管理</span>
+            </template>
+            <el-menu-item-group>
+              <el-menu-item index="/category"
+                ><i class="el-icon-menu" />分类管理</el-menu-item
+              >
             </el-menu-item-group>
           </el-submenu>
         </el-menu>
@@ -86,7 +104,7 @@ export default {
     const router = useRouter();
     const state = reactive({
       showMenu: true, // 是否需要显示菜单
-      defaultOpen: ["1", "2"],
+      defaultOpen: ["1", "2","3"],
       currentPath: "/",
     });
     // 监听路由的变化
