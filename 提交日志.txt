@@ -62,3 +62,9 @@ Uncaught SyntaxError: The requested module '/src/utils/index.js?t=1629125027384'
 35代码完成 最后出现问题为：GET http://localhost:3000/code/demo-for%20Autumn%20recruit/management-system/src/components/DialogAddCategory.vue net::ERR_ABORTED 404 (Not Found)
 静态资源未找到 ，明天在找吧 晚安
 
+8.21早 35bug找到 提示静态资源未找到是vue名称写错了
+今早上目标完成商品管理（wangEditor富文本插件，Cascader组件分类三级联动）功能
+OK开干
+今天主要学习内容在于富文本编辑器的使用
+列表页点击新增商品按钮的时候跳转到菜单栏，展示详细信息
+这里涉及的业务有三级联动 动态获取 文本输入框，数字输入框，radio选项，图片上传，富文本编辑器的插入
