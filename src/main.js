@@ -1,6 +1,8 @@
 //规则都是先导入然后再引用 注意引用子组件的方法
 
-import { createApp } from 'vue'
+import {
+    createApp
+} from 'vue'
 import App from './App.vue'
 import router from '@/router'
 import axios from 'axios'
@@ -11,7 +13,38 @@ import ElementPlus from 'element-plus'
 // import 'element-plus/lib/theme-chalk/index.css';
 //导入自定义的主题包
 import '../theme/index.css'
-import { ElButton, ElContainer, ElAside, ElHeader, ElMain, ElFooter, ElMenu, ElSubmenu, ElMenuItemGroup, ElMenuItem, ElForm, ElFormItem, ElInput, ElPopover, ElTag, ElCard, ElTable, ElTableColumn, ElPagination, ElDialog, ElPopconfirm, ElUpload, ElLoading, ElSelect, ElOption, ElRadioGroup, ElRadio, ElCascader, ElCheckbox, ElInputNumber } from 'element-plus'
+import {
+    ElButton,
+    ElContainer,
+    ElAside,
+    ElHeader,
+    ElMain,
+    ElFooter,
+    ElMenu,
+    ElSubmenu,
+    ElMenuItemGroup,
+    ElMenuItem,
+    ElForm,
+    ElFormItem,
+    ElInput,
+    ElPopover,
+    ElTag,
+    ElCard,
+    ElTable,
+    ElTableColumn,
+    ElPagination,
+    ElDialog,
+    ElPopconfirm,
+    ElUpload,
+    ElLoading,
+    ElSelect,
+    ElOption,
+    ElRadioGroup,
+    ElRadio,
+    ElCascader,
+    ElCheckbox,
+    ElInputNumber
+} from 'element-plus'
 
 const app = createApp(App) // 生成 Vue 实例 app
 
@@ -50,3 +83,16 @@ app.use(ElButton)
 
 
 app.mount('#app') // 挂载到 #app
+    // 全局方法
+app.config.globalProperties.$filters = {
+    prefix(url) {
+        if (url && url.startsWith('http')) {
+            // 当url以http开头的时候 我们返回原路径
+            return url
+        } else {
+            // 否则我们会给路劲添加host
+            url = 'http://backend-api-02.newbee.ltd${url}'
+            return url
+        }
+    }
+}
