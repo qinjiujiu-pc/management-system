@@ -1,0 +1,5 @@
+新建一个页面步骤
+在views中添加组件vue
+现在app.vue组件中对应的部分添加占位路由
+然后再router、index.js中配置理由参数 主要是import导入和path，name component配置
+到utils/index.js中添加头部信息

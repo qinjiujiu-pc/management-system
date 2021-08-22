@@ -16,6 +16,7 @@ import Category from '@/views/Category.vue'
 import Good from '@/views/Good.vue'
 import Order from '@/views/Order.vue'
 import OrderDetail from '@/views/OrderDetail.vue'
+import Guest from '@/views/Guest.vue'
 
 const router = createRouter({
     history: createWebHashHistory(), // hash 模式
@@ -96,7 +97,12 @@ const router = createRouter({
             component: OrderDetail
         },
 
-
+        // 会员管理页面
+        {
+            path: '/guest',
+            name: 'guest',
+            component: Guest
+        }
 
 
 
