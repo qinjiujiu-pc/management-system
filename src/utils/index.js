@@ -25,8 +25,13 @@ export const pathMap = {
         category: '分类管理',
         level2: '分类二级管理',
         level3: '分类三级管理',
+        god: "商品管理",
+        order: '订单管理',
+        order_detail: '订单详情',
 
     }
     // 单张图片上传 
     // 这个就是导致上一个错误的原因 未定义啥啥的
 export const uploadImgServer = 'http://backend-api-02.newbee.ltd/manage-api/v1/upload/file'
+    // 多张图片上传
+export const uploadImgsServer = 'http://backend-api-02.newbee.ltd/manage-api/v1/upload/files'

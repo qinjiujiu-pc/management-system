@@ -115,6 +115,7 @@ export default {
           state.total = res.totalCount; // 数据总条数
           state.currentPage = res.currPage; // 当前页
           state.loading = false; // 数据成功返回后，将列表 loading 清除
+          app.ctx.goTop() //回到顶部
         });
     };
     // 添加商品，跳转到 /add 路径下
@@ -153,3 +154,11 @@ export default {
   },
 };
 </script>
+<style scoped>
+  .good-container {
+    min-height: 100%;
+  }
+  .el-card.is-always-shadow {
+    min-height: 100%!important;
+  }
+</style>
